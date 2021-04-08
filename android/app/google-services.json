@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "920810202149",
+    "project_id": "flick-64314",
+    "storage_bucket": "flick-64314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920810202149:android:a7074b199e2a3a08c4cbcc",
+        "android_client_info": {
+          "package_name": "com.example.flick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920810202149-ddcjk5fibtt29o7q9robelri1q8evu2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flick",
+            "certificate_hash": "349ed8a467c0770be4e29cddbe34cf7ae60b5763"
+          }
+        },
+        {
+          "client_id": "920810202149-l7t5m5b90t9cb8p3gv1b6uet6nuo5sre.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGutAfJWDbuoG6DMgbHnNqIv5dXvX-bj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920810202149-l7t5m5b90t9cb8p3gv1b6uet6nuo5sre.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
