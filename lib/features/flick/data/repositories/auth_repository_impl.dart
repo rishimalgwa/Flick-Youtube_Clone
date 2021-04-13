@@ -27,7 +27,7 @@ class AuthRepositoryImpl extends AuthRepository {
         idToken: googleAuthentication.idToken,
         accessToken: googleAuthentication.accessToken,
       );
-      List<String> videoLinks = [];
+      List<String> videoIds = [];
       await _firebaseAuth.signInWithCredential(authCredential);
       User user = _firebaseAuth.currentUser;
       _firestore.collection('Users').doc(user.uid).set({
@@ -37,7 +37,7 @@ class AuthRepositoryImpl extends AuthRepository {
         "channelName": '',
         "subscribers": 0,
         "videosCount": 0,
-        "videoIds": videoLinks,
+        "videoIds": videoIds,
       });
       return right(unit);
     } on FirebaseAuthException catch (_) {
@@ -56,6 +56,12 @@ class AuthRepositoryImpl extends AuthRepository {
         .doc(_firebaseAuth.currentUser.uid)
         .get();
     return UserModel.fromDoc(snapshot);
+  }
+
+  Future<String> getCurrentUID() async {
+    final user = _firebaseAuth.currentUser;
+    final String uid = user.uid;
+    return uid;
   }
 
   @override

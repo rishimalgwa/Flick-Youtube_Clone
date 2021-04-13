@@ -1,15 +1,11 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flick/features/flick/data/models/userModel.dart';
 import 'package:flick/features/flick/presentation/bloc/auth_bloc/authenticaton_bloc.dart';
+import 'package:flick/features/flick/presentation/pages/upload_video_screen.dart';
 import 'package:flick/features/flick/presentation/widgets/thumnail_holder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 
 class HomeScreen extends StatelessWidget {
   final UserModel user;
@@ -18,8 +14,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    File _image;
-    final picker = ImagePicker();
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.red,
@@ -52,14 +46,9 @@ class HomeScreen extends StatelessWidget {
           color: Colors.white,
         ),
         onPressed: () async {
-          final pickedFile = await picker.getVideo(source: ImageSource.gallery);
-          var filepath = File(pickedFile.path);
-          String path = filepath.path;
-          final videoInfo = FlutterVideoInfo();
-
-          var info = await videoInfo.getVideoInfo(path);
-          print(path);
-          print(info.duration * 0.001);
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return UploadVideoPage();
+          }));
         },
         backgroundColor: Colors.red,
       ),

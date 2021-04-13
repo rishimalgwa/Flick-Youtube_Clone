@@ -39,6 +39,9 @@ class _AppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
           primaryColor: Colors.red,
+          focusColor: Colors.redAccent,
+          highlightColor: Colors.redAccent,
+          hintColor: Colors.white,
         ),
         home: BlocBuilder(
           bloc: _authenticationBloc,

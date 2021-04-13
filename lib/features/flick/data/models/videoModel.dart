@@ -11,9 +11,9 @@ class VideoModel extends Video {
       @required String id,
       @required int likes,
       @required int dislikes,
-      @required int length,
-      @required int uploadDate,
-      @required int uploadTime,
+      @required String length,
+      @required String uploadDate,
+      @required String uploadTime,
       @required List<String> tags})
       : super(
             description: description,
@@ -39,6 +39,6 @@ class VideoModel extends Video {
         length: doc['length'],
         uploadDate: doc['uploadDate'],
         uploadTime: doc['uploadTime'],
-        tags: doc['tags']);
+        tags: doc['tags'].cast<String>());
   }
 }

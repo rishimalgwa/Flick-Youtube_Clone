@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 
 class Video extends Equatable {
   final String title, description, url, uploadedBy, id;
-  final int likes, dislikes, length, uploadDate, uploadTime;
+  final int likes, dislikes;
+  final String length;
+  final String uploadDate, uploadTime;
   final List<String> tags;
 
   Video(
