@@ -1,6 +1,6 @@
-# flick
+# Flick
 
-A new Flutter project.
+Flick is a Youtube clone which I created for learning purpose. Firebase is used as backend. In this project clean code architecture is followed which is inspried form Reso code TTD course.
 
 ## Getting Started
 
