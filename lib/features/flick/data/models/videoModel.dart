@@ -27,13 +27,14 @@ class VideoModel extends Video {
             uploadDate: uploadDate,
             uploadTime: uploadTime,
             tags: tags);
-  factory VideoModel.fromDoc(DocumentSnapshot doc) {
+  factory VideoModel.fromDoc(DocumentSnapshot snap) {
+    var doc = snap.data();
     return VideoModel(
         title: doc['title'],
         description: doc['description'],
         url: doc['url'],
         uploadedBy: doc['uploadedBy'],
-        id: doc.id,
+        id: snap.id,
         likes: doc['likes'],
         dislikes: doc['dislikes'],
         length: doc['length'],

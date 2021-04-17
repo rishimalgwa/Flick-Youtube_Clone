@@ -39,6 +39,7 @@ dependencies:
   google_sign_in: ^5.0.1
   image_picker: ^0.7.4
   intl: ^0.17.0
+  shimmer: ^2.0.0
   uuid: ^3.0.3
   video_player: ^2.1.1
   video_thumbnail: ^0.3.3

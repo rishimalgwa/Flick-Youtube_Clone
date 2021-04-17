@@ -2,10 +2,14 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flick/features/flick/data/models/userModel.dart';
 import 'package:flick/features/flick/data/models/videoModel.dart';
+import 'package:flick/features/flick/data/repositories/auth_repository_impl.dart';
 import 'package:flick/features/flick/domain/repositories/repository.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,6 +17,7 @@ class RepositoryImpl extends Repository {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
+  AuthRepositoryImpl authRepositoryImpl = AuthRepositoryImpl();
   Future<Either<FirebaseException, Unit>> uploadVideo(
       {@required String title,
       @required File file,
@@ -43,11 +48,29 @@ class RepositoryImpl extends Repository {
         "uploadTime": time,
         "tags": tags
       });
+      UserModel model = await authRepositoryImpl.getUser();
+      List<String> videoIds = model.videoIds;
+      int videoCount = videoIds.length;
+      videoIds.add(uuid);
+      videoCount = videoIds.length;
+      _firestore
+          .collection('Users')
+          .doc(uploadedBy)
+          .update({"videoIds": videoIds, "videosCount": videoCount});
       return right(unit);
     } on FirebaseException catch (e) {
       return left(e);
     }
   }
 
-  Future<VideoModel> fetchVideo() {}
+  Future<List<VideoModel>> fetchVideo() async {
+    List<VideoModel> videoList = [];
+    await _firestore
+        .collection('Videos')
+        .get()
+        .then((value) => value.docs.forEach((doc) {
+              videoList.add(VideoModel.fromDoc(doc));
+            }));
+    return videoList;
+  }
 }

@@ -4,5 +4,5 @@ import 'package:flick/features/flick/data/models/videoModel.dart';
 
 abstract class Repository {
   Future<Either<FirebaseException, Unit>> uploadVideo();
-  Future<VideoModel> fetchVideo();
+  Future<List<VideoModel>> fetchVideo();
 }
