@@ -3,13 +3,13 @@ import 'package:flick/features/flick/data/models/videoModel.dart';
 import 'package:flick/features/flick/data/repositories/repository_impl.dart';
 import 'package:flick/features/flick/presentation/bloc/auth_bloc/authenticaton_bloc.dart';
 import 'package:flick/features/flick/presentation/pages/upload_video_screen.dart';
+import 'package:flick/features/flick/presentation/pages/video_page.dart';
 import 'package:flick/features/flick/presentation/widgets/shrimmer_holder.dart';
 import 'package:flick/features/flick/presentation/widgets/thumnail_holder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   final UserModel user;
@@ -22,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   RepositoryImpl repositoryImpl = RepositoryImpl();
-  List<VideoModel> videos = [];
 
   @override
   void initState() {
@@ -52,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: FutureBuilder(
-          future: repositoryImpl.fetchVideo(),
+      body: StreamBuilder(
+          stream: repositoryImpl.fetchVideo().asStream(),
           builder: (context, snapshot) {
             bool isWating = snapshot.connectionState == ConnectionState.waiting;
             return ListView.builder(
@@ -61,7 +60,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return isWating
                       ? ShimmerThumbnailHolder()
-                      : ThumbnailHolder();
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return VideoPage();
+                            }));
+                          },
+                          child: ThumbnailHolder(snapshot.data[index]));
                 });
           }),
       floatingActionButton: FloatingActionButton(
@@ -72,7 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () async {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return UploadVideoPage();
-          })).then((value) => ScaffoldMessenger.of(context).showSnackBar(
+          })).then((value) {
+            if (value != null) {
+              setState(() {});
+              ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,7 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   backgroundColor: Colors.white,
                 ),
-              ));
+              );
+            }
+          });
         },
         backgroundColor: Colors.red,
       ),

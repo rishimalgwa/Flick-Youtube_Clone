@@ -9,7 +9,6 @@ import 'package:flick/features/flick/data/models/videoModel.dart';
 import 'package:flick/features/flick/data/repositories/auth_repository_impl.dart';
 import 'package:flick/features/flick/domain/repositories/repository.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
@@ -30,6 +29,7 @@ class RepositoryImpl extends Repository {
     String date = DateFormat.yMMMMd('en_US').format(now);
     String time = DateFormat.Hm().format(now);
     try {
+      UserModel model = await authRepositoryImpl.getUser();
       var snapshot = await _firebaseStorage
           .ref('videos')
           .child(uuid)
@@ -38,9 +38,11 @@ class RepositoryImpl extends Repository {
       _firestore.collection('Videos').doc(uuid).set({
         "title": title,
         "description": description,
+        "channelName": model.username, // change to channelName
         "url": downloadUrl,
         "uploadedBy": uploadedBy,
         "id": uuid,
+        'views': 0,
         "likes": 0,
         "dislikes": 0,
         "length": length,
@@ -48,7 +50,7 @@ class RepositoryImpl extends Repository {
         "uploadTime": time,
         "tags": tags
       });
-      UserModel model = await authRepositoryImpl.getUser();
+
       List<String> videoIds = model.videoIds;
       int videoCount = videoIds.length;
       videoIds.add(uuid);

@@ -211,7 +211,7 @@ class _UploadVideoPageState extends State<UploadVideoPage> {
                   ),
                 );
               } else if (state is VideoUploadSuccessState) {
-                Navigator.pop(context);
+                Navigator.pop(context, 'success');
                 return Center(
                     child: Container(
                         child: Text(
