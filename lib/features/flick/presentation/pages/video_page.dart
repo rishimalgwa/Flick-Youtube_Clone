@@ -1,4 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flick/features/flick/data/models/videoModel.dart';
 import 'package:flick/features/flick/presentation/widgets/chewie_item.dart';
+import 'package:flick/features/flick/presentation/widgets/lable_icons.dart';
+import 'package:flick/features/flick/presentation/widgets/seprator.dart';
+import 'package:flick/features/flick/presentation/widgets/shrimmer_holder.dart';
+import 'package:flick/features/flick/presentation/widgets/thumnail_holder.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
@@ -9,7 +16,6 @@ class VideoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Column(
         children: [
@@ -54,10 +60,7 @@ class VideoPage extends StatelessWidget {
                             style: TextStyle(color: Colors.grey),
                           ),
                           SizedBox(width: 7),
-                          CircleAvatar(
-                            radius: 1,
-                            backgroundColor: Colors.white,
-                          ),
+                          CircularSeprator(),
                           SizedBox(width: 7),
                           Text(
                             '1 year ago',
@@ -106,29 +109,81 @@ class VideoPage extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
+          HorizontalSeprator(),
           Container(
-            color: Colors.grey.shade700,
-            height: 1,
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.grey,
+                ),
+                SizedBox(
+                  width: 18,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      'channel name',
+                      style: TextStyle(fontSize: 19),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      '16k Subcribers',
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                Text(
+                  'SUBSCRIBE',
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.red,
+                      fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+          ),
+          HorizontalSeprator(),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text('Comments',
+                        style: TextStyle(
+                          fontSize: 16,
+                        )),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '200',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+                    Spacer(),
+                    IconButton(
+                        icon: Icon(Icons.arrow_drop_down), onPressed: null)
+                  ],
+                )
+              ],
+            ),
+          ),
+          HorizontalSeprator(),
+          Container(
+            height: 220,
+            child: ListView.builder(
+                itemCount: 12,
+                itemBuilder: (context, index) {
+                  return ShimmerThumbnailHolder();
+                }),
           )
         ],
       ),
-    );
-  }
-}
-
-class CustomIcons extends StatelessWidget {
-  final String text;
-  final IconData iconData;
-  final Function onPressed;
-  const CustomIcons({this.text, this.iconData, this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        IconButton(icon: Icon(iconData), onPressed: onPressed),
-        Text(text)
-      ],
     );
   }
 }

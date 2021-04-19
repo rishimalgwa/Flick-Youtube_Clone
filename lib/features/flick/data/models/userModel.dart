@@ -7,11 +7,13 @@ class UserModel extends User {
       {@required String email,
       @required String uid,
       @required String username,
+      @required String logoUrl,
       String channelName,
       int subscribers,
       int videosCount,
       List<String> videoIds})
       : super(
+            logoUrl: logoUrl,
             username: username,
             email: email,
             uid: uid,
@@ -22,6 +24,7 @@ class UserModel extends User {
   factory UserModel.fromDoc(DocumentSnapshot doc) {
     return UserModel(
       uid: doc.id,
+      logoUrl: doc['logoUrl'],
       username: doc['username'],
       email: doc['email'],
       channelName: doc['channelName'] ?? '',

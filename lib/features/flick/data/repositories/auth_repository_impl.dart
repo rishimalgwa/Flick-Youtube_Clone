@@ -28,9 +28,11 @@ class AuthRepositoryImpl extends AuthRepository {
         accessToken: googleAuthentication.accessToken,
       );
       List<String> videoIds = [];
+
       await _firebaseAuth.signInWithCredential(authCredential);
       User user = _firebaseAuth.currentUser;
       _firestore.collection('Users').doc(user.uid).set({
+        "logoUrl": user.photoURL,
         "email": user.email,
         "uid": user.uid,
         "username": user.displayName,

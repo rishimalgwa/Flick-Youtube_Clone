@@ -13,11 +13,13 @@ class VideoModel extends Video {
       @required int dislikes,
       @required int views,
       @required String channelName,
+      @required String logoUrl,
       @required String length,
       @required String uploadDate,
       @required String uploadTime,
       @required List<String> tags})
       : super(
+            logoUrl: logoUrl,
             channelName: channelName,
             views: views,
             description: description,
@@ -34,6 +36,7 @@ class VideoModel extends Video {
   factory VideoModel.fromDoc(DocumentSnapshot snap) {
     var doc = snap.data();
     return VideoModel(
+        logoUrl: doc['logoUrl'],
         channelName: doc['channelName'],
         views: doc['views'],
         title: doc['title'],

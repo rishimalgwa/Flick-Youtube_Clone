@@ -36,6 +36,7 @@ class RepositoryImpl extends Repository {
           .putFile(file, SettableMetadata(contentType: 'video/mp4'));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       _firestore.collection('Videos').doc(uuid).set({
+        "logoUrl": model.logoUrl,
         "title": title,
         "description": description,
         "channelName": model.username, // change to channelName

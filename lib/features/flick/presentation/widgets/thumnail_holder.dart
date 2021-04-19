@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flick/features/flick/data/models/videoModel.dart';
+import 'package:flick/features/flick/presentation/widgets/seprator.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -103,7 +105,8 @@ class _ThumbnailHolderState extends State<ThumbnailHolder> {
                 children: [
                   CircleAvatar(
                     radius: 22,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.grey,
+                    backgroundImage: NetworkImage(widget.videoModel.logoUrl),
                   ),
                   SizedBox(
                     width: 10,
@@ -116,23 +119,18 @@ class _ThumbnailHolderState extends State<ThumbnailHolder> {
                       ),
                       Text(
                         widget.videoModel.title,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       Row(
                         children: [
                           Text(widget.videoModel.channelName),
                           SizedBox(width: 7),
-                          CircleAvatar(
-                            radius: 1,
-                            backgroundColor: Colors.white,
-                          ),
+                          CircularSeprator(),
                           SizedBox(width: 7),
                           Text(widget.videoModel.views.toString()),
                           SizedBox(width: 7),
-                          CircleAvatar(
-                            radius: 1,
-                            backgroundColor: Colors.white,
-                          ),
+                          CircularSeprator(),
                           SizedBox(width: 7),
                           Text(uploadYear),
                         ],

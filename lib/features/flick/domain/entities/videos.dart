@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 class Video extends Equatable {
-  final String title, description, url, uploadedBy, id, channelName;
+  final String title, description, url, uploadedBy, id, channelName, logoUrl;
   final int likes, dislikes, views;
   final String length;
   final String uploadDate, uploadTime;
@@ -11,6 +11,7 @@ class Video extends Equatable {
   Video(
       {@required this.channelName,
       @required this.views,
+      @required this.logoUrl,
       @required this.title,
       @required this.description,
       @required this.url,
@@ -24,6 +25,7 @@ class Video extends Equatable {
       @required this.tags});
   @override
   List<Object> get props => [
+        logoUrl,
         channelName,
         views,
         title,
